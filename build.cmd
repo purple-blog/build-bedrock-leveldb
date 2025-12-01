@@ -199,7 +199,8 @@ cmake.exe %CMAKE_COMMON_ARGS%                           ^
   -D LEVELDB_BUILD_TESTS=OFF                            ^
   -D LEVELDB_BUILD_BENCHMARKS=OFF                       ^
   -D LEVELDB_INSTALL=ON                                 ^
-  -D LEVELDB_DISABLE_RTTI=OFF                           ^
+  -D LEVELDB_DISABLE_RTTI=ON                            ^
+  -D CMAKE_CXX_FLAGS="/GR-"                             ^
   -D LEVELDB_SUPPORT_LEGACY_ZLIB_ENUM=ON                ^
   || exit /b 1
 ninja.exe -C %BUILD%\leveldb install || exit /b 1
