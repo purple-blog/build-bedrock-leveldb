@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 ```
 
 [leveldb]: https://github.com/mojang/leveldb
-[latest release]: https://github.com/purple-mc/build-bedrock-leveldb/releases/latest
+[latest release]: https://github.com/purple-blog/build-bedrock-leveldb/releases/latest
 [Actor Storage in Minecraft: Bedrock Edition]: https://learn.microsoft.com/en-us/minecraft/creator/documents/actorstorage?view=minecraft-bedrock-stable
 [Bedrock Edition level format]: https://minecraft.wiki/w/Bedrock_Edition_level_format
 [Historic Bedrock Edition level format]: https://minecraft.wiki/w/Bedrock_Edition_level_format/History
