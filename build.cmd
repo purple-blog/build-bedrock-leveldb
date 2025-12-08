@@ -28,7 +28,7 @@ REM
 
 set NINJA_VERSION=1.13.2
 
-set ZLIB_VERSION=1.3.1
+set ZLIB_VERSION=1.3.1.2
 set SNAPPY_VERSION=1.2.2
 set ZSTD_VERSION=1.5.7
 
@@ -93,7 +93,7 @@ where /Q ninja.exe || (
 )
 ninja.exe --version || exit /b 1
 
-call :get "https://github.com/madler/zlib/releases/download/v%ZLIB_VERSION%/zlib-%ZLIB_VERSION%.tar.gz"                 || exit /b 1
+call :get "https://github.com/madler/zlib/archive/refs/tags/v%ZLIB_VERSION%.tar.gz" zlib-%ZLIB_VERSION%.tar.gz          || exit /b 1
 call :get "https://github.com/google/snappy/archive/refs/tags/%SNAPPY_VERSION%.tar.gz" snappy-%SNAPPY_VERSION%.tar.gz   || exit /b 1
 call :get "https://github.com/facebook/zstd/releases/download/v%ZSTD_VERSION%/zstd-%ZSTD_VERSION%.tar.gz"               || exit /b 1
 call :clone leveldb "https://github.com/Mojang/leveldb.git" main                                                        || exit /b 1
@@ -140,6 +140,9 @@ cmake.exe %CMAKE_COMMON_ARGS%                           ^
   -B %BUILD%\zlib-%ZLIB_VERSION%                        ^
   -D CMAKE_INSTALL_PREFIX=%DEPEND%                      ^
   -D BUILD_SHARED_LIBS=OFF                              ^
+  -D ZLIB_BUILD_STATIC=ON                               ^
+  -D ZLIB_BUILD_MINIZIP=OFF                             ^
+  -D ZLIB_INSTALL=ON                                    ^
   || exit /b 1
 ninja.exe -C %BUILD%\zlib-%ZLIB_VERSION% install || exit /b 1
 
@@ -188,7 +191,7 @@ REM
 REM leveldb
 REM
 
-set LEVELDB_FLAGS=-LIBPATH:%DEPEND%\lib zlibstatic.lib snappy.lib zstd_static.lib
+set LEVELDB_FLAGS=-LIBPATH:%DEPEND%\lib zs.lib snappy.lib zstd_static.lib
 
 cmake.exe %CMAKE_COMMON_ARGS%                           ^
   -S %SOURCE%\leveldb                                   ^
